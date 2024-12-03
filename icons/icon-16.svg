@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- Capsule shape -->
+  <rect x="10" y="30" width="80" height="40" rx="20" ry="20" fill="#4a54f0"/>
+  
+  <!-- Inner clock design -->
+  <circle cx="50" cy="50" r="15" fill="#7b68ee"/>
+  <line x1="50" y1="50" x2="50" y2="40" stroke="#fff" stroke-width="2"/> <!-- Clock hand (vertical) -->
+  <line x1="50" y1="50" x2="58" y2="50" stroke="#fff" stroke-width="2"/> <!-- Clock hand (horizontal) -->
+  
+</svg>

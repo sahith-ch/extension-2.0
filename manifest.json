@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "Website Time Tracker Pro",
+    "version": "1.0",
+    "description": "Accurately track time spent on websites with advanced tracking and historical data analysis",
+    "permissions": [
+    "tabs",
+    "windows", 
+    "storage",
+    "activeTab"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "./icons/icon-16.svg"
+    }
+}

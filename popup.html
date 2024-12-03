@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Odyssey - Website Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a54f0;
+            --secondary-color: #7b68ee;
+            --bg-color: #f4f6ff;
+            --text-color: #2c3e50;
+            --card-bg: white;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #e6e9f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(74, 84, 240, 0.1);
+            overflow: hidden;
+            position: relative;
+            animation: float 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h1 i {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .controls select {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .controls button {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .total-time {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .site-entry {
+            background: white;
+            margin: 10px;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .site-entry:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .site-info {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .domain {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .time {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .ai-section {
+            background: #f1f3f5;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 15px;
+        }
+
+        .ai-button {
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        .ai-button:hover {
+            opacity: 0.9;
+        }
+
+        .ai-response {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: medium;
+        }
+
+        .ai-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ai-response::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .ai-response::-webkit-scrollbar-track {
+        background: #f1f3f5;
+        border-radius: 0px;
+    }
+
+    .ai-response::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 10px;
+    }
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner div {
+    width: 18px;
+    height: 18px;
+    background-color: #4a54f0;
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    margin: 0 5px;
+}
+
+.spinner .bounce1 {
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+        transform: scale(0);
+    } 40% { 
+        transform: scale(1.0);
+    }
+}
+
+#askAi:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <i class="fas fa-clock"></i>
+                Time Tracker
+            </h1>
+            <div class="controls">
+                <select id="timeframe">
+                    <option value="today" style="color: #2c3e50;">Today</option>
+                    <option value="week" style="color: #2c3e50;">This Week</option>
+                    <option value="month" style="color: #2c3e50;">This Month</option>
+                </select>
+                <button id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="total-time">
+            <i class="fas fa-clock"></i>
+            Total Time: <span id="totalTime">4h 30m</span>
+        </div>
+        
+        <div id="stats">
+            <!-- Site entries will be dynamically populated here -->
+        </div>
+
+        <div class="ai-section">
+            <button id="askAi" class="ai-button">
+                <i class="fas fa-robot"></i>
+                Ask AI Insights
+            </button>
+            <div id="aiResponse" class="ai-response">
+                Your AI insights will appear here
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
